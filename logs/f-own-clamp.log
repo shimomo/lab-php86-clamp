@@ -1,0 +1,37 @@
+### tests/f-unguarded.php in the PHP 8.6 image
+
+Fatal error: Cannot redeclare function clamp() in /lab/tests/f-unguarded.php on line 8
+Stack trace:
+#0 {main}
+
+### tests/f-unguarded.php on the host's older PHP
+PHP 8.5.9
+int(100)
+
+### tests/f-guarded.php in the PHP 8.6 image
+# F: a helper named clamp() behind function_exists()
+# PHP 8.6.0RC2, clamp(): native
+
+## same result either way
+clamp(150, 0, 100)                           => int(100)
+
+## inverted bounds: the helper returned a value, the native function throws
+clamp(5, 10, 1)                              => ValueError: clamp(): Argument #2 ($min) must be smaller than or equal to argument #3 ($max)
+
+### tests/f-guarded.php on the host's older PHP
+# F: a helper named clamp() behind function_exists()
+# PHP 8.5.9, clamp(): userland
+
+## same result either way
+clamp(150, 0, 100)                           => int(100)
+
+## inverted bounds: the helper returned a value, the native function throws
+clamp(5, 10, 1)                              => int(10)
+
+### tests/f-namespaced.php in the PHP 8.6 image
+PHP 8.6.0RC2, global clamp() exists: true
+clamp(0, 150, 100) inside App\Support => int(100)
+
+### tests/f-namespaced.php on the host's older PHP
+PHP 8.5.9, global clamp() exists: false
+clamp(0, 150, 100) inside App\Support => int(100)

@@ -1,0 +1,26 @@
+# C: gotchas
+# PHP 8.5.9, clamp(): symfony/polyfill-php86
+
+## the returned value keeps its own type
+clamp("50", 1, 100)                          => string(2) "50"
+clamp("150", 1, 100)                         => int(100)
+clamp(0.5, 0, 1)                             => float(0.5)
+clamp(1.5, 0, 1)                             => int(1)
+
+## values that are not numbers still compare
+clamp(null, 1, 100)                          => int(1)
+clamp("", 1, 100)                            => int(1)
+clamp("abc", 1, 100)                         => int(100)
+clamp(true, 5, 100)                          => bool(true)
+
+## bounds computed at runtime can end up inverted
+clamp(3, 0, count([]) - 1)                   => ValueError: clamp(): Argument #2 ($min) must be smaller than or equal to argument #3 ($max)
+max(0, min(count([]) - 1, 3))                => int(0)
+
+## NAN as the value passes through
+clamp(NAN, 0, 1)                             => float(NAN)
+max(0, min(1, NAN))                          => float(NAN)
+
+## the idiom clamp() replaces is easy to write the wrong way round
+max(0, min(100, 50))                         => int(50)
+min(0, max(100, 50))                         => int(0)

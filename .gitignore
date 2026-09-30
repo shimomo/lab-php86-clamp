@@ -1,0 +1,9 @@
+# composer install で復元できるもの
+vendor/
+
+# キャッシュ
+/.composer-cache/
+/.composer-home/
+
+# 公開しない下書き
+/blog-draft.md

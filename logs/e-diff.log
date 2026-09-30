@@ -1,0 +1,18 @@
+--- a-basics.log
++++ e-polyfill-basics.log
+@@ -1,5 +1,5 @@
+ # A: basics
+-# PHP 8.6.0RC2, clamp(): native
++# PHP 8.5.9, clamp(): symfony/polyfill-php86
+ 
+ ## signature
+ clamp(mixed $value, mixed $min, mixed $max): mixed
+--- c-gotchas.log
++++ e-polyfill-gotchas.log
+@@ -1,5 +1,5 @@
+ # C: gotchas
+-# PHP 8.6.0RC2, clamp(): native
++# PHP 8.5.9, clamp(): symfony/polyfill-php86
+ 
+ ## the returned value keeps its own type
+ clamp("50", 1, 100)                          => string(2) "50"

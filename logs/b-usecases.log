@@ -1,0 +1,28 @@
+# B: use cases
+# PHP 8.6.0RC2, clamp(): native
+
+## rounding user input into a range (page size, quantity, slider)
+clamp(250, 1, 100)                           => int(100)
+clamp(0, 1, 100)                             => int(1)
+clamp(25, 1, 100)                            => int(25)
+
+## keeping a computed value in range (percentage, probability)
+clamp(104.2, 0, 100)                         => int(100)
+clamp(-0.003, 0.0, 1.0)                      => float(0)
+
+## absorbing floating-point error before a domain-restricted function
+acos(1.0000000002)                           => float(NAN)
+acos(clamp(1.0000000002, -1, 1))             => float(0)
+
+## capped waiting time (retry backoff in milliseconds)
+clamp(100 * 2 ** 3, 100, 30_000)             => int(800)
+clamp(100 * 2 ** 12, 100, 30_000)            => int(30000)
+
+## colours, coordinates, list indexes
+clamp(271, 0, 255)                           => int(255)
+clamp(-8, 0, 255)                            => int(0)
+clamp(9, 0, count(["a", "b", "c"]) - 1)      => int(2)
+
+## dates pulled into a period
+clamp(d("2026-09-28"), d("2026-10-01"), d("2026-10-31")) => DateTimeImmutable(2026-10-01)
+clamp(d("2026-10-15"), d("2026-10-01"), d("2026-10-31")) => DateTimeImmutable(2026-10-15)

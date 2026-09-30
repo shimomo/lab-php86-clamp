@@ -1,0 +1,14 @@
+# D: benchmark
+# PHP 8.6.0RC2, clamp(): native
+# opcache: off, JIT: off
+
+## 5,000,000 calls each, best of 9 rounds
+                             total ms   ns/call    net ns
+loop only, no clamping           68.7      13.7         -
+clamp()                         160.9      32.2      18.4
+inline max(min())               152.0      30.4      16.7
+inline ternary                  104.2      20.8       7.1
+helper function (ternary)       229.7      45.9      32.2
+helper function (min/max)       238.1      47.6      33.9
+
+every clamping variant returned the same sum: true

@@ -1,0 +1,6 @@
+{
+    "description": "Test E: clamp() on PHP 8.5 through symfony/polyfill-php86.",
+    "require": {
+        "symfony/polyfill-php86": "^1.43"
+    }
+}
