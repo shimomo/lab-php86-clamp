@@ -1,5 +1,7 @@
 # lab-php86-clamp
 
+[English](README.en.md)
+
 PHP 8.6 で追加される [`clamp()`](https://wiki.php.net/rfc/clamp_v2) の挙動を、公式 Docker イメージの 8.6.0RC2 で確かめるための検証環境。2026年9月30日に作成。
 
 ## 使い方
